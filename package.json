@@ -1,0 +1,10 @@
+{
+	"name":"test",
+	"dependencies":{
+		"dotenv":"*",
+		"cloudant":"*",
+		"request":"*", 
+		"pg":"*", 
+		"json-sql":"*"
+		 }
+}
