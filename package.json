@@ -5,6 +5,7 @@
 		"cloudant":"*",
 		"request":"*", 
 		"pg":"*", 
-		"json-sql":"*"
+		"json-sql":"*", 
+		"plotly":"*"
 		 }
 }
