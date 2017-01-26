@@ -4,8 +4,11 @@
 		"dotenv":"*",
 		"cloudant":"*",
 		"request":"*", 
-		"pg":"*", 
 		"json-sql":"*", 
-		"plotly":"*"
+		"plotly":"*", 
+		"express":"*", 
+		"massive":"*", 
+		"pg":"*",
+		"performance-now":"*"
 		 }
 }
