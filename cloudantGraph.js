@@ -12,7 +12,7 @@ var plotly_username = process.env.plotly_username;
 var plotly_api_key = process.env.plotly_api_key;
 
 var cloudant = Cloudant({account:username, password:password});
-var ciaran = cloudant.db.use('ciaran');
+var ciaran = cloudant.db.use('currencies');
 var currency ="USD";
 var currency_search="rows[row].doc.obj.rates."+currency
 //console.log(currency_search);
@@ -22,7 +22,7 @@ var plotly =require('plotly')(plotly_username, plotly_api_key);
 
 var display=function(data){
   var iframe = document.createElement("iframe");
-  document.getElementById("cloudantDiv").append(graph)
+  //document.getElementById("cloudantDiv").append(graph)
 }
 
 
@@ -35,6 +35,7 @@ function getGraph(callback){
 	var gbprates=[];
 	var cadrates=[];
 	var audrates=[];
+	
 
 	for (row in rows){
 		var information=rows[row].doc.obj;
@@ -43,6 +44,7 @@ function getGraph(callback){
 		//console.log(date)
 		dates[row]=date;
 		usrates[row]=rates.USD;
+
 		gbprates[row]=rates.GBP;
 		cadrates[row]=rates.CAD;
 		audrates[row]=rates.AUD;
@@ -50,33 +52,33 @@ function getGraph(callback){
 		// count ++; 
 	}
 	
-	var dataUS={
+	var US={
 		x:dates,
 		y:usrates,
 		type:"scatter",
 		name:"US Rates"
 	};
-	 var dataGBP={
+	 var GBP={
 	 	x:dates,
 	 	y:gbprates,
 	 	type:"scatter",
 	 	name:"GBP Rates"
 	 };
-	 var dataCAD={
+	 var CAD={
 	 	x:dates,
 	 	y:cadrates,
 	 	type:"scatter",
 	 	name:"CAD Rates"
 	 };
 
-	 var dataAUD={
+	 var AUD={
 	 	x:dates,
 	 	y:audrates,
 	 	type:"scatter",
 	 	name:"AUD Rates"
 	 };
 
-	 var data=[dataGBP,dataUS, dataCAD, dataAUD];
+	 var data=[GBP,US, CAD, AUD];
 
 	 
 
@@ -88,14 +90,9 @@ function getGraph(callback){
 	plotly.plot(data, graphOptions, function(err, msg){
 		var link_name=msg.url;	
 		console.log(link_name);
-		var iframe="<iframe width='900' height='800' frameborder='0' scrolling='no' src='"+link_name+".embed'></iframe>" 
+	
 		
-		var graph=document.createElement("iframe");
-		graph.setAttribute("src", link);
-		graph.style.width="640px";
-		graph.style.height="480px";
-		
-		callback(graph)
+		//callback(graph)
 	})
   })
 };

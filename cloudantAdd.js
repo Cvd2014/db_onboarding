@@ -8,8 +8,8 @@ var password = process.env.cloudant_password;
 var api=process.env.api_key;
 //cloudant connection
 var cloudant = Cloudant({account:username, password:password});
-cloudant.db.create('ciaran');
-var ciaranCloudant = cloudant.db.use('ciaran')
+cloudant.db.create('currencies');
+var ciaranCloudant = cloudant.db.use('currencies')
 
 
 var startDate=new Date(2002,01,01);
@@ -33,7 +33,7 @@ function fillDB(){
 
         ciaranCloudant.insert({ _id: id, obj}, function(err, body, header ){
           if (err) {
-           return console.log('[ciaran.insert] ', err.message);
+           return console.log('[currencies.insert] ' + nextDate , err.message);
           }
 
           //console.log('You have inserted the record for '+ id);
@@ -53,7 +53,7 @@ function fillDB(){
       //console.log(nextDate);
     }
     
-  }, 110)
+  }, 150)
  }
 
 
@@ -95,10 +95,10 @@ function queryDB(){
 
 function DoSomething(){
  ciaranCloudant.list(function(err, data){
-  if (data.length==0){
-    fillDB();
-  }else{
+  if (data && data.length!=0){
     queryDB();
+  }else{
+    fillDB();
   }
 
  })
